@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zjtd.analyze.publishe.mapper.DauMapper">
+
+    <select id="selectDauTotal" parameterType="java.lang.String" resultType="java.lang.Long">
+       select count(distinct uuid) pv  from flow_node_track_action where  FROM_UNIXTIME(created_at,'%Y-%m-%d')=#{date}
+
+    </select>
+
+    <select id="selectDauTotalHourMap" resultMap="dauTotalHour">
+        select LOGHOUR lh, count(*) ct from gmall_dau where  LOGDATE=#{date}
+        group by LOGHOUR
+    </select>
+
+    <resultMap id="dauTotalHour" type="java.util.Map" autoMapping="true">
+    </resultMap>
+
+</mapper>
+
